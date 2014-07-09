@@ -1,0 +1,9 @@
+{
+  "name": "analogExistence",
+  "version": "0.1.0",
+  "devDependencies": {
+    "bootstrap-sass-twbs": "~3.1.x",
+    "jquery": "~2.1.x",
+    "moment": "~2.7.x"
+  }
+}
