@@ -5,6 +5,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-clean'
     grunt.loadNpmTasks 'grunt-contrib-copy'
     grunt.loadNpmTasks 'grunt-contrib-sass'
+    grunt.loadNpmTasks 'grunt-contrib-watch'
 
 
     # Load the build configuration file.
@@ -22,17 +23,62 @@ module.exports = (grunt) ->
         # Remove generated files and folders. Basically,
         # just the build folders.
         clean:
-            build:
+            dev:
                 ['<%= dev_dir %>/*']
-            bin:
-                # ['bin/*']
+            prod:
                 ['<%= prod_dir %>/*']
+
+        copy:
+            dev:
+                # Straight Copies (i.e. index.html, vendor/
+                files: [
+                    nonull:  true # Let's you see errors if no file was found.
+                    expand:  true # Let's you give an array of values
+                    src:     ['*.html', 'vendor/']
+                    dest:    '<%= dev_dir %>/'
+                    cwd:     '<%= src_dir %>/'
+                ]
+        sass:
+            dev:
+                options:
+                    style:      'expanded'
+                    sourcemap:  true
+                    compass:    true
+                files: [
+                    expand: true
+                    cwd: '<%= src_dir %>/common/'
+                    src: ['*.scss']
+                    dest: '<%= dev_dir %>/css/'
+                    ext: '.css'
+                ]
+
+        _watch_:
+            sass:
+                files: ['<%= src_dir %>/common/*.scss']
+                tasks: ['sass:dev']
+            
+
+
 
 
     # Add the userConfig to taskConfig
     grunt.initConfig(grunt.util._.extend(taskConfig, userConfig))
 
-    grunt.registerTask 'default', ['clean'], ->
-        grunt.log.writeln("Cleaning Build and Bin...")
-                
-                
+
+    grunt.registerTask 'default', ['clean:dev', 'copy:dev', 'sass:dev']
+
+
+
+    # Example of how we can write our own logs between tasks... Well almost
+    grunt.registerTask 'verbose', ->
+        grunt.log.writeln("Clean up your toys...")
+        grunt.task.run('clean:dev')
+
+        grunt.log.writeln("Duplicate your Toys...")
+        grunt.task.run('copy:dev')
+
+        grunt.log.writeln("Profit")
+        grunt.task.run('sass:dev')
+
+    grunt.renameTask 'watch', '_watch_'
+    grunt.registerTask 'watch', ['default', '_watch_']
