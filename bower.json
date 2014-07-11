@@ -1,6 +1,13 @@
 {
   "name": "analogExistence",
   "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/vendor",
+    "src/**/tests/"
+  ],
   "devDependencies": {
     "bootstrap-sass-twbs": "~3.1.x",
     "jquery": "~2.1.x",
