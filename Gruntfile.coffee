@@ -27,6 +27,8 @@ module.exports = (grunt) ->
                 ['<%= dev_dir %>/*']
             prod:
                 ['<%= prod_dir %>/*']
+            htmlonly:
+                ['<%= dev_dir %>/*.html']
 
         copy:
             dev:
@@ -37,6 +39,15 @@ module.exports = (grunt) ->
                     src:     ['*.html', 'vendor/']
                     dest:    '<%= dev_dir %>/'
                     cwd:     '<%= src_dir %>/'
+                ]
+            htmlonly:
+                # Copy html only.
+                files: [
+                    nonull: true
+                    expand: true
+                    src: ['*.html']
+                    dest: '<%= dev_dir %>/'
+                    cwd: '<%= src_dir %>'
                 ]
         sass:
             dev:
@@ -53,6 +64,9 @@ module.exports = (grunt) ->
                 ]
 
         _watch_:
+            html:
+                files: ['<%= src_dir %>/index.html']
+                tasks: ['clean:htmlonly', 'copy:htmlonly']
             sass:
                 files: ['<%= src_dir %>/common/*.scss']
                 tasks: ['sass:dev']

@@ -8,12 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Normalize all the browsers -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <!-- Dump people are people too.  We need to show them the road. -->
     <!--[if lt IE 8]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <!-- Bootstrap's Grid System Container -->
+    <div class="container">
+        <h3>Take Ctrl.</h3>
+        <div class="row">
+            <div class="section control">
+                <button type="button" class="btn btn-primary">Lights</button>
+                <button type="button" class="btn btn-primary">Garage Door</button>
+                <button type="button" class="btn btn-primary">Cameras</button>
+                <button type="button" class="btn btn-primary">Plants</button>
+                <button type="button" class="btn btn-primary">Smart Plugs</button>
+                <button type="button" class="btn btn-primary">Drones</button>
+            </div> <!-- .control-section -->
+            <div class="section info hidden-xs">
+                <h4>Status</h4>
+            </div> <!-- .info-section -->
+        </div>
+    </div> <!-- .container-fluid -->
 </body>
 </html>
