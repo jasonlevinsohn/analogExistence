@@ -1,2 +1,0 @@
-//= require testOne
-//= require testTwo
