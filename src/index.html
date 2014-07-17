@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +19,12 @@
         <h3>Take Ctrl.</h3>
         <div class="row">
             <div class="section control">
-                <button type="button" class="btn btn-primary">Lights</button>
+                <button type="button" data-toggle="dropdown" class="btn btn-primary" href="#">Lights
+                    <ul class="dropdown-menu" role="menu">
+                        <li>Light One</li>
+                        <li>Light Two</li>
+                    </ul>
+                </button>
                 <button type="button" class="btn btn-primary">Garage Door</button>
                 <button type="button" class="btn btn-primary">Cameras</button>
                 <button type="button" class="btn btn-primary">Plants</button>
@@ -32,5 +36,8 @@
             </div> <!-- .info-section -->
         </div>
     </div> <!-- .container-fluid -->
+
+    <!-- Javascript Libraries -->
+
 </body>
 </html>

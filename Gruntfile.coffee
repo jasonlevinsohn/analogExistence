@@ -1,3 +1,4 @@
+
 module.exports = (grunt) ->
     'use strict'
 
@@ -10,6 +11,9 @@ module.exports = (grunt) ->
 
     # Load the build configuration file.
     userConfig = require './build.config.js'
+
+    # Load custom packages
+    sb = require './snocketBuilder.js'
 
     # Config object Grunt uses to give each plugin
     # its instructions.
@@ -33,10 +37,16 @@ module.exports = (grunt) ->
         copy:
             dev:
                 # Straight Copies (i.e. index.html, vendor/
+                # We don't need to copy over index.html, because
+                # the buildAssets and snocketBuilder will do that.
                 files: [
                     nonull:  true # Let's you see errors if no file was found.
                     expand:  true # Let's you give an array of values
-                    src:     ['*.html', 'vendor/']
+                    src:     [
+                        'vendor/**/bootstrap/*.js'
+                        'vendor/jquery/dist/*.js'
+                        'vendor/jquery/dist/*.map'
+                    ]
                     dest:    '<%= dev_dir %>/'
                     cwd:     '<%= src_dir %>/'
                 ]
@@ -79,7 +89,7 @@ module.exports = (grunt) ->
     grunt.initConfig(grunt.util._.extend(taskConfig, userConfig))
 
 
-    grunt.registerTask 'default', ['clean:dev', 'copy:dev', 'sass:dev']
+    grunt.registerTask 'default', ['clean:dev', 'buildAssets', 'copy:dev', 'sass:dev']
 
 
 
@@ -96,3 +106,7 @@ module.exports = (grunt) ->
 
     grunt.renameTask 'watch', '_watch_'
     grunt.registerTask 'watch', ['default', '_watch_']
+
+    # Custom Asset Builder using 
+    grunt.registerTask 'buildAssets', ->
+        sb.build('src/vendor/bootstrap-sass-twbs/vendor/assets/javascripts/bootstrap.js', 'src/index.html', 'build/index.html')
