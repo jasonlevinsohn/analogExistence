@@ -76,7 +76,7 @@ module.exports = (grunt) ->
         _watch_:
             html:
                 files: ['<%= src_dir %>/index.html']
-                tasks: ['clean:htmlonly', 'copy:htmlonly']
+                tasks: ['clean:htmlonly', 'copy:htmlonly', 'buildAssets']
             sass:
                 files: ['<%= src_dir %>/common/*.scss']
                 tasks: ['sass:dev']
